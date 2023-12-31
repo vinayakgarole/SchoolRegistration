@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SchoolRegistration.Models.Student>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center text-primary">**Student Record**</h1>
+            <p class="text-center text-success">@TempData["Error"]</p>
+            @using (Html.BeginForm("List", "Student", FormMethod.Get))
+            {
+                <input type="text" name="search" placeholder="Enter Student Name...." />
+                <input type="submit" name="submit" value="search" />
+            }
+            <a class="btn btn-sm btn-success m-1" asp-controller="Student" asp-action="Create">Create</a>
+            <table class="table table-bordered">
+                <tr class="text-center">
+                    <th>ProfilePicture</th>
+                    <th>S_Name</th>
+                    <th>S_Address</th>
+                    <th>S_Fees</th>
+                    <th>S_Age</th>
+                    <th>StandardName</th>
+                    <th>SubjectName</th>
+                    <th>PhoneNumber</th>
+                    <th>Action</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr class="text-center">
+                        <td>
+                            <img src="~/uploads/@item.ProfilePicture" width="50"
+                                 height="50" alt=" NOT FOUND">
+                        </td>
+                        <td>@item.S_Name</td>
+                        <td>@item.S_Address</td>
+                        <td>@item.S_Fees</td>
+                        <td>@item.S_Age</td>
+                        <td>@item.StandardName</td>
+                        <td>@item.SubjectName</td>
+                        <td>@item.PhoneNumber</td>
+                        <td>
+                            <a class="btn btn-sm btn-warning" asp-controller="Student" asp-action="Edit" asp-route-Id="@item.S_Id">Edit</a>
+                            <a class="btn btn-sm btn-danger" asp-controller="Student" asp-action="delete" asp-route-Id="@item.S_Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+                <form method="post" asp-controller="Home" asp-action="Export">
+                    <input type="submit" value="Export" />
+                </form>
+                <form method="get" asp-controller="Home" asp-action="DownloadPDF">
+                    <input type="submit" value="Download PDF" />
+                </form>
+        </div>
+    </div>
+</div>

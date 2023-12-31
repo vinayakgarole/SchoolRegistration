@@ -1,0 +1,70 @@
+﻿@model SchoolRegistration.Models.Student
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <div class="card-header">
+                <h1 class="text-center text-primary text-decoration-underline">Edit Student Detail</h1>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-action="Edit" enctype="multipart/form-data">
+                    <input type="hidden" asp-for="S_Id" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        @if (!string.IsNullOrEmpty(Model.ProfilePicture))
+                        {
+                            <div class="form-group">
+                                <label for="currentProfilePicture">Current Profile Picture</label>
+                                <img src="@Url.Content("~/uploads/" + Model.ProfilePicture)" alt="Current Profile Picture" class="img-thumbnail" width="50" height="50" />
+                            </div>
+                        }
+                        <label for="profilePicture">Profile Picture</label>
+                        <input type="file" class="form-control-file" id="profilePicture" name="file">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="S_Name" class="control-label"></label>
+                        <input asp-for="S_Name" class="form-control" />
+                        <span asp-validation-for="S_Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="S_Address" class="control-label"></label>
+                        <input asp-for="S_Address" class="form-control" />
+                        <span asp-validation-for="S_Address" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="S_Fees" class="control-label"></label>
+                        <input type="text" asp-for="S_Fees" class="form-control" />
+                        <span asp-validation-for="S_Fees" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="S_Age" class="control-label"></label>
+                        <input asp-for="S_Age" class="form-control" />
+                        <span asp-validation-for="S_Age" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="PhoneNumber" class="control-label"></label>
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="StandardName" class="control-label"></label>
+                        @Html.DropDownListFor(model => model.StandardId, (List<SelectListItem>)ViewBag.StandardName, new { @class = "form-select" })
+                        <span asp-validation-for="StandardId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SubjectName" class="control-label"></label>
+                        @Html.DropDownListFor(model => model.SubjectId, (List<SelectListItem>)ViewBag.SubjectName, new { @class = "form-select" })
+                        <span asp-validation-for="SubjectId" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Update" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
